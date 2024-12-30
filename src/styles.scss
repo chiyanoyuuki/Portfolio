@@ -70,6 +70,9 @@ p {
     opacity: 1;
     padding: 5vh 5vw;
     transition: 0.5s;
+    overflow: auto;
+    scrollbar-color: rgb(22, 167, 22) rgb(173, 204, 173);
+    scrollbar-width: thin;
     p {
       font-family: "normal2";
     }
@@ -114,7 +117,8 @@ p {
     .bloc {
       filter: drop-shadow(1px 1px 5px black);
       position: absolute;
-      top: -140px;
+      top: -100px;
+      z-index: 1;
       right: -125px;
       img {
         width: 50px;

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import html2canvas from 'html2canvas';
@@ -48,10 +48,12 @@ export class AppComponent {
 
   vie = [1, 1, 1];
 
+  blocLangHeight = 100;
   tuyauWidth = 205;
-  tuyauBottom = 150;
-  tuyauHeight = 85;
+  tuyauBottom = 120;
+  tuyauHeight = 83.5;
   plateformeWidth = 120;
+  plateformeHeight = 30;
 
   clouds: any = [];
 
@@ -61,12 +63,20 @@ export class AppComponent {
     (_, i) => i + 1
   );
 
-  constructor() {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.jump(true);
     this.move();
     this.generateClouds();
+
+    this.renderer.listen('window', 'load', () => {
+      this.triggerResizeEvent();
+    });
+  }
+
+  triggerResizeEvent() {
+    window.dispatchEvent(new Event('resize'));
   }
 
   generateClouds(): void {
@@ -272,8 +282,15 @@ export class AppComponent {
         y < this.innerHeight - this.tuyauBottom + 20 &&
         !this.isJumping
       ) {
+        let bottomFirstPlatform =
+          this.innerHeight - this.tuyauBottom - this.plateformeHeight;
         for (let i = 0; i < this.menus.length; i++) {
-          if (y > 670 - 80 * i && y < 730 - 80 * i)
+          if (
+            y + this.characterHeight >
+              bottomFirstPlatform - this.characterHeight / 2 - 80 * i &&
+            y + this.characterHeight <
+              bottomFirstPlatform + this.characterHeight / 2 - 80 * i
+          )
             this.selectedMenu = 5 - i - 1;
         }
       }
@@ -313,7 +330,13 @@ export class AppComponent {
       else if (
         x + this.characterWidth > this.tuyauWidth + 20 &&
         x < this.tuyauWidth + 70 &&
-        y + 30 < 700 - this.menus.length * this.tuyauHeight
+        y <
+          this.innerHeight -
+            this.tuyauBottom -
+            this.menus.length * this.tuyauHeight -
+            this.blocLangHeight -
+            this.plateformeHeight +
+            this.taillebloc
       ) {
         this.lang = this.lang == 'fr' ? 'en' : 'fr';
         this.startJumpY = -this.jumpHeight;
@@ -350,7 +373,11 @@ export class AppComponent {
                   this.taillebloc +
                   20 -
                   this.tuyauHeight * i &&
-              y > this.innerHeight - this.tuyauBottom - this.tuyauHeight * i;
+              y >
+                this.innerHeight -
+                  this.tuyauBottom -
+                  this.tuyauHeight * i -
+                  this.plateformeHeight;
         }
       }
 
