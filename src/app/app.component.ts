@@ -104,7 +104,7 @@ export class AppComponent {
   ];
 
   nbproj = 1;
-  characterPosition: any = { x: 500, y: 500 };
+  characterPosition: any = { x: 600, y: 500 };
   currentFrame: any = 0;
   walking: any = false;
   direction: any = 'right';
@@ -114,6 +114,7 @@ export class AppComponent {
   deplacement: any = 5;
   startJumpY: any = 0;
   hideCharacter: boolean = false;
+  showtouches = true;
 
   isJumping = false;
   jumpHeight = 150;
@@ -354,6 +355,8 @@ export class AppComponent {
     if (this.keysDown.right && !this.keysDown.up && !this.keysDown.down) {
       this.walking = true;
       this.direction = 'right';
+      if (!this.showtouches && this.characterPosition.x > 400)
+        this.showtouches = true;
       if (x < this.innerWidth - this.characterWidth)
         this.characterPosition.x += this.deplacement; // Déplacement à droite
       if (
@@ -376,6 +379,8 @@ export class AppComponent {
       this.walking = true;
       this.direction = 'left';
       let can = true;
+      if (this.showtouches && this.characterPosition.x < 400)
+        this.showtouches = false;
       if (
         this.isJumping &&
         x < this.tuyauWidth &&
@@ -406,6 +411,7 @@ export class AppComponent {
   }
 
   tpMario(i: number) {
+    this.showtouches = false;
     let bottomFirstPlatform =
       this.innerHeight - this.tuyauBottom - this.plateformeHeight + 30;
     this.characterPosition.x = 20;

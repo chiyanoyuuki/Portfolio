@@ -13,6 +13,12 @@
     <img src="coeur.png" *ngFor="let coeur of vie" />
   </div>
 
+  <img
+    class="touches"
+    src="touches.png"
+    [style.opacity]="showtouches ? 1 : 0"
+  />
+
   <img class="background" src="bg.png" />
 
   <img

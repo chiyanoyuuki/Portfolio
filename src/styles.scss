@@ -140,6 +140,13 @@ p {
     }
   }
 
+  .touches {
+    position: absolute;
+    left: 30%;
+    bottom: 15%;
+    transition: 0.5s;
+  }
+
   .leftPanel {
     width: 150px;
     bottom: 120px;
