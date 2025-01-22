@@ -23,6 +23,14 @@
     [style.width]="cloud.width + 'px'"
     class="cloud"
   />
+  <img
+    src="rocket.png"
+    *ngFor="let rocket of rockets"
+    [style.top]="rocket.y + 'px'"
+    [style.left]="rocket.x + 'px'"
+    [style.width]="rocket.width + 'px'"
+    class="cloud rocket"
+  />
 
   <canvas
     id="myCanvas"
@@ -30,13 +38,14 @@
   ></canvas>
 
   <div class="leftPanel">
-    <div class="bloc">
+    <div class="bloc" (click)="lang == 'fr' ? (lang = 'en') : (lang = 'fr')">
       <img src="bloc.png" />
       <img class="lang" src="{{ lang }}.png" />
     </div>
     <div
       *ngFor="let menu of menus; let i = index"
       class="tuyautxt"
+      (click)="tpMario(i)"
       [class.selectedTuyau]="i == selectedMenu"
     >
       <img class="tuyau" src="tuyau.png" />
@@ -69,6 +78,19 @@
             : "Specialized Front-End Angular / Back-End Java Developer with significant experience in mobile application development and databases"
         }}
       </p>
+      <div class="coord" *ngIf="lang == 'fr'">
+        <p>Né le 23/10/1995</p>
+        <p>Téléphone : 06.82.01.57.34</p>
+        <p>Email : charles.poure&#64;hotmail.com</p>
+        <p>Addresse : 43 chemin de la Cabre 13790 Chateauneuf le rouge</p>
+      </div>
+      <div class="coord" *ngIf="lang == 'en'">
+        <p>Born on 10/23/1995</p>
+        <p>Phone: 06.82.01.57.34</p>
+        <p>Email: charles.poure&#64;hotmail.com</p>
+        <p>Address: 43 Chemin de la Cabre, 13790 Châteauneuf-le-Rouge</p>
+      </div>
+
       <div class="description" *ngIf="lang == 'fr'">
         <p class="secondTitle">Back End</p>
         <p>
@@ -107,6 +129,16 @@
           Angular et créé une multitude de projets personnels lorsque j'ai envie
           de faire vivre une idée qui me passe par la tête
         </p>
+        <p class="secondTitle">Autre</p>
+        <p>Langues :</p>
+        <p>- Anglais confirmé/courant</p>
+        <p>- Espagnol scolaire</p>
+        <p>Atouts :</p>
+        <p>- Autonome : Très bonne logique / Capacité d'adaptation</p>
+        <p>- Curieux : Touche à tout, soif d'apprendre et de découvrir</p>
+        <p>Hobbies</p>
+        <p>- Geek : Séries, Mangas, Jeux-Vidéo</p>
+        <p>- Créatif : Cosplay, Musicien</p>
       </div>
       <div class="description" *ngIf="lang == 'en'">
         <p class="secondTitle">Back End</p>
@@ -144,6 +176,16 @@
           created a multitude of personal projects whenever I want to bring an
           idea to life that comes to my mind.
         </p>
+        <p class="secondTitle">Other</p>
+        <p>Languages:</p>
+        <p>- English: Fluent/Advanced</p>
+        <p>- Spanish: Basic proficiency</p>
+        <p>Strengths:</p>
+        <p>- Independent: Strong logical thinking / Adaptability</p>
+        <p>- Curious: Jack-of-all-trades, eager to learn and explore</p>
+        <p>Hobbies:</p>
+        <p>- Geek: Series, Manga, Video Games</p>
+        <p>- Creative: Cosplay, Musician</p>
       </div>
     </div>
 
@@ -155,7 +197,7 @@
         <p class="secondTitle">Education générale</p>
         <p>
           J'ai suivi un cursus scientifique avec comme spécialité "Informatique
-          et Sciences du numérique". J'ai botenu mon Bac avec mention et
+          et Sciences du numérique". J'ai obtenu mon Bac avec mention et
           décroché la note parfaite en développant un jeu de combat Tekken en
           Python avec la librairie Pygame pour le bac de ma spécialité
         </p>
@@ -220,6 +262,332 @@
           developing my own mobile/web and application projects.
         </p>
       </div>
+    </div>
+
+    <div *ngIf="selectedMenu != -1 && menus[selectedMenu].id == 2">
+      <p class="title">
+        {{ lang == "fr" ? menus[selectedMenu].fr : menus[selectedMenu].en }}
+      </p>
+      <div *ngIf="lang == 'fr'">
+        <div class="exp">
+          <p class="nom">Développeur Full Stack C# Angular (Remote)</p>
+          <div class="top">
+            <p>A2mac1</p>
+            <p>02/2023 - 03/2024</p>
+          </div>
+          <img src="pro0.png" />
+          <p class="desc">
+            Maintenance et ajout de fonctionnalités sur la solution web dans le
+            secteur automobile Ajout complet des tests e2e dans l’application
+            Optimisation des requêtes lourdes Développement d’outils internes
+            d’aide aux différentes équipes en Java Participation forte à la
+            méthodologie agile en place
+          </p>
+          <p class="secondTitle">
+            Angular 2+(70%), C#(30%), Java, Typescript, Azure DevOps, e2e, SQL
+          </p>
+        </div>
+        <div class="exp">
+          <p class="nom">Pilote d'études (Remote)</p>
+          <div class="top">
+            <p>Akka Technologies</p>
+            <p>03/2022 - 12/2022</p>
+          </div>
+          <img src="pro1.png" />
+          <p class="desc">
+            Mission de 6 mois pour le groupe Thalès dirigée exclusivement Front
+            Angular Création de nouvelles fonctionnalités sur l'application
+            Maintenance de l'application dans son ensemble Mise en place d'un
+            système de communication général entre les différentes sous parties
+            du système Programmation de tests End to End (e2e)
+          </p>
+          <p class="secondTitle">
+            Angular 2+(100%), Typescript, Git, NGXS, e2e
+          </p>
+        </div>
+        <div class="exp">
+          <p class="nom">Développeur Full Stack Java Angular (Remote)</p>
+          <div class="top">
+            <p>CGI France</p>
+            <p>03-2021 - 02-2022</p>
+          </div>
+          <img src="pro2.png" />
+          <p class="desc">
+            Maintenance des différentes applications dans les secteurs
+            e-commerce/administration française Développement d'un intranet from
+            scratch en Angular basé sur le besoin d'un outil de gestion des
+            temps des différents collaborateurs Mise en place d'outils
+            d'automatisation en Java
+          </p>
+          <p class="secondTitle">
+            Java(60%), Angular 2+(40%), Typescript, MySQL, HTML/CSS, Git,
+            Jenkins, Sonar, NGXS, AWS, Wildfly, Thymeleaf, Jira REST Api, Nexus
+          </p>
+        </div>
+        <div class="exp">
+          <p class="nom">Développeur Indépendant (Remote)</p>
+          <div class="top">
+            <p>ASC Arma Softwares</p>
+            <p>03/2019 - 03/2021</p>
+          </div>
+          <img src="pro3.png" />
+          <p class="desc">
+            Réalisation de différents projets pour des associations et des
+            particuliers Programmation d'applications web dans les secteurs
+            e-commerce/ventes Développements logiciels en Java dans les secteurs
+            mobiles/jeux-vidéo Création et administration de bases de données
+            MySQL
+          </p>
+          <p class="secondTitle">
+            Java(50%), Angular 2+(50%), Typescript, MySQL, HTML/CSS, Git,
+            Python, Sonar, TomCat, RiotAPI, RPA, Slick2D, LWJGL
+          </p>
+        </div>
+        <div class="exp">
+          <p class="nom">Ingénieur d'études et développements</p>
+          <div class="top">
+            <p>ST Groupe</p>
+            <p>08/2018 - 03/2019</p>
+          </div>
+          <img src="pro4.png" />
+          <p class="desc">
+            Maintenance d'une application web puis réalisation d'un projet from
+            scratch en autonomie Développement d'un outil RPA avec comme
+            contraintes une lecture de fichiers d'entrée de n'importe quel
+            format, une transformation des données parfaite et un format de
+            sortie attendu Création d'un site complet pour que les clients
+            puissent suivre en direct l'évolution du traitement de leurs
+            fichiers dans l'outil RPA et modifier les règles de transformation
+          </p>
+          <p class="secondTitle">
+            Java(60%), Angular 2+(40%), Typescript, MySQL, HTML/CSS, Git, Sonar,
+            TomCat, Jenkins, Nexus, PostgreSQL, SSO, MongoDB
+          </p>
+        </div>
+        <div class="exp">
+          <p class="nom">Ingénieur FullStack Java/J2EE, Angular</p>
+          <div class="top">
+            <p>Aubay</p>
+            <p>05/2017 - 11/2017</p>
+          </div>
+          <img src="pro5.png" />
+          <p class="desc">
+            Maintenance d'une application web dans le secteur banques/assurances
+            Rédaction de documents techniques et fonctionnels Rédactions et
+            déroulement des cas de tests techniques
+          </p>
+          <p class="secondTitle">
+            Java(40%), AngularJS(20%), Angular 2+(40%), Javascript, MySQL,
+            HTML/CSS, Git, Sonar, TomCat, Jenkins, Nexus, PostgreSQL
+          </p>
+        </div>
+        <div class="exp">
+          <p class="nom">Sous officier Informaticien</p>
+          <div class="top">
+            <p>Armée de l'air</p>
+            <p>09/2016 - 05/2017</p>
+          </div>
+          <img src="pro6.png" />
+          <p class="desc"></p>
+          <p class="secondTitle"></p>
+        </div>
+      </div>
+      <div *ngIf="lang == 'en'">
+        <div class="exp">
+          <p class="nom">Full Stack C# Angular Developer (Remote)</p>
+          <div class="top">
+            <p>A2mac1</p>
+            <p>02/2023 - 03/2024</p>
+          </div>
+          <img src="pro0.png" />
+          <p class="desc">
+            Maintenance and feature development for the web solution in the
+            automotive sector Full implementation of end-to-end (e2e) tests in
+            the application Optimization of heavy queries Development of
+            internal tools to assist various teams in Java Strong participation
+            in the agile methodology in place
+          </p>
+          <p class="secondTitle">
+            Angular 2+ (70%), C# (30%), Java, TypeScript, Azure DevOps, e2e, SQL
+          </p>
+        </div>
+
+        <div class="exp">
+          <p class="nom">Study Lead (Remote)</p>
+          <div class="top">
+            <p>Akka Technologies</p>
+            <p>03/2022 - 12/2022</p>
+          </div>
+          <img src="pro1.png" />
+          <p class="desc">
+            Six-month mission for the Thalès group, exclusively focused on
+            Angular frontend Development of new features for the application
+            Full maintenance of the application Implementation of a general
+            communication system between the different subparts of the system
+            Programming of End-to-End (e2e) tests
+          </p>
+          <p class="secondTitle">
+            Angular 2+ (100%), TypeScript, Git, NGXS, e2e
+          </p>
+        </div>
+
+        <div class="exp">
+          <p class="nom">Full Stack Java Angular Developer (Remote)</p>
+          <div class="top">
+            <p>CGI France</p>
+            <p>03/2021 - 02/2022</p>
+          </div>
+          <img src="pro2.png" />
+          <p class="desc">
+            Maintenance of various applications in the e-commerce and French
+            administration sectors Development of an intranet from scratch in
+            Angular based on the need for a time management tool for various
+            collaborators Implementation of automation tools in Java
+          </p>
+          <p class="secondTitle">
+            Java (60%), Angular 2+ (40%), TypeScript, MySQL, HTML/CSS, Git,
+            Jenkins, Sonar, NGXS, AWS, Wildfly, Thymeleaf, Jira REST API, Nexus
+          </p>
+        </div>
+
+        <div class="exp">
+          <p class="nom">Freelance Developer (Remote)</p>
+          <div class="top">
+            <p>ASC Arma Softwares</p>
+            <p>03/2019 - 03/2021</p>
+          </div>
+          <img src="pro3.png" />
+          <p class="desc">
+            Development of various projects for associations and individuals Web
+            application programming in the e-commerce/sales sectors Software
+            development in Java for mobile and video game industries Creation
+            and administration of MySQL databases
+          </p>
+          <p class="secondTitle">
+            Java (50%), Angular 2+ (50%), TypeScript, MySQL, HTML/CSS, Git,
+            Python, Sonar, TomCat, RiotAPI, RPA, Slick2D, LWJGL
+          </p>
+        </div>
+
+        <div class="exp">
+          <p class="nom">Software Engineer</p>
+          <div class="top">
+            <p>ST Groupe</p>
+            <p>08/2018 - 03/2019</p>
+          </div>
+          <img src="pro4.png" />
+          <p class="desc">
+            Maintenance of a web application followed by the independent
+            development of a project from scratch Development of an RPA tool
+            with constraints such as reading input files in any format, perfect
+            data transformation, and an expected output format Creation of a
+            complete website allowing clients to track the real-time processing
+            of their files in the RPA tool and modify transformation rules
+          </p>
+          <p class="secondTitle">
+            Java (60%), Angular 2+ (40%), TypeScript, MySQL, HTML/CSS, Git,
+            Sonar, TomCat, Jenkins, Nexus, PostgreSQL, SSO, MongoDB
+          </p>
+        </div>
+
+        <div class="exp">
+          <p class="nom">Full Stack Java/J2EE, Angular Engineer</p>
+          <div class="top">
+            <p>Aubay</p>
+            <p>05/2017 - 11/2017</p>
+          </div>
+          <img src="pro5.png" />
+          <p class="desc">
+            Maintenance of a web application in the banking/insurance sector
+            Writing of technical and functional documents Writing and execution
+            of technical test cases
+          </p>
+          <p class="secondTitle">
+            Java (40%), AngularJS (20%), Angular 2+ (40%), JavaScript, MySQL,
+            HTML/CSS, Git, Sonar, TomCat, Jenkins, Nexus, PostgreSQL
+          </p>
+        </div>
+
+        <div class="exp">
+          <p class="nom">IT Non-Commissioned Officer</p>
+          <div class="top">
+            <p>French Air Force</p>
+            <p>09/2016 - 05/2017</p>
+          </div>
+          <img src="pro6.png" />
+          <p class="desc"></p>
+          <p class="secondTitle"></p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedMenu != -1 && menus[selectedMenu].id == 3">
+      <p class="title">
+        {{ lang == "fr" ? menus[selectedMenu].fr : menus[selectedMenu].en }}
+      </p>
+      <p class="firstDiv">
+        Java, Angular 2+, SQL, HTML, CSS, XML, Python, Shell, R, Jira, C#
+      </p>
+      <div class="jauge">
+        <div class="first" [style.width]="83 + '%'"></div>
+        <div></div>
+      </div>
+      <p class="firstDiv">
+        Eclipse, Visual Studio, Android Studio, Adobe Suite, Unity, Git
+      </p>
+      <div class="jauge">
+        <div class="first" [style.width]="76 + '%'"></div>
+        <div></div>
+      </div>
+      <p class="firstDiv">
+        Typescript, Slick2D, LWJGL, R Studio, J2EE, RPA, Jenkins, MariaDB
+      </p>
+      <div class="jauge">
+        <div class="first" [style.width]="72 + '%'"></div>
+        <div></div>
+      </div>
+      <p class="firstDiv">
+        C, C++, .NET, Thymeleaf, WildFly, Tomcat, Javascript, PHP, AngularJS
+      </p>
+      <div class="jauge">
+        <div class="first" [style.width]="67 + '%'"></div>
+        <div></div>
+      </div>
+      <p class="firstDiv">
+        WebStorm, PostgreSQL, Grunt, Hibernate, Spring, DBC, REST, Django
+      </p>
+      <div class="jauge">
+        <div class="first" [style.width]="60 + '%'"></div>
+        <div></div>
+      </div>
+      <p class="firstDiv">Npm, JQuery, BootStrap, WordPress, React, Vue</p>
+      <div class="jauge">
+        <div class="first" [style.width]="55 + '%'"></div>
+        <div></div>
+      </div>
+      <p class="firstDiv">Objective C, Swift</p>
+      <div class="jauge">
+        <div class="first" [style.width]="50 + '%'"></div>
+        <div></div>
+      </div>
+    </div>
+    <div
+      *ngIf="selectedMenu != -1 && menus[selectedMenu].id == 4"
+      class="projets"
+    >
+      <p class="title">
+        {{ lang == "fr" ? menus[selectedMenu].fr : menus[selectedMenu].en }}
+      </p>
+      <div class="top">
+        <img class="retourne" (click)="addproj(-1)" src="droite.png" />
+        <p>{{ projets[nbproj].nom }}</p>
+        <img src="droite.png" (click)="addproj(1)" />
+      </div>
+      <p
+        class="desc"
+        [innerHTML]="lang == 'fr' ? projets[nbproj].desc : projets[nbproj].en"
+      ></p>
+      <iframe [src]="projets[nbproj].link" frameborder="0"></iframe>
     </div>
   </div>
 
